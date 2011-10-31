@@ -48,7 +48,7 @@ function enable() {
         icon.height = WINDOWOVERLAY_ICON_SIZE;
         
         this._applicationIconBox = new St.Bin({ style_class: 'windowoverlay-application-icon-box' });
-        this._applicationIconBox.set_opacity(200);
+        this._applicationIconBox.set_opacity(255);
         this._applicationIconBox.add_actor(icon);
         
         createdActors.push(this._applicationIconBox);
@@ -71,15 +71,15 @@ function enable() {
     
     injectToFunction(Workspace.WindowOverlay.prototype, '_onLeave', function() {
         Tweener.addTween(this._applicationIconBox, { time: 0.2,
-                                                     opacity: 200,
+                                                     opacity: 255,
                                                      transition: 'linear' });
     });
     
     injectToFunction(Workspace.WindowOverlay.prototype, 'updatePositions', function(cloneX, cloneY, cloneWidth, cloneHeight) {
         let icon = this._applicationIconBox;
         
-        let iconX = cloneX + cloneWidth - icon.width - 3;
-        let iconY = cloneY + cloneHeight - icon.height - 3;
+        let iconX = cloneX - icon.width/2;
+        let iconY = cloneY - icon.height/2;
         
         icon.set_position(Math.floor(iconX), Math.floor(iconY));
     });
